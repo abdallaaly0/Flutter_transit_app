@@ -1,0 +1,33 @@
+from nyct_gtfs import NYCTFeed
+feed = NYCTFeed("A", api_key="5zisyVOSabaBzo4djN7cS9AS6uNbXMfChhoFoWL7")
+
+# Read the first train from the feed
+trains = feed.filter_trips(line_id="A",underway=True, travel_direction= "N")
+
+print(len(trains))
+
+
+
+# Prints data of all A trains 
+
+# print(len(feed.trips))
+for i in range (len(trains)):
+
+    print("Loop #" + str(i) + " " + str(trains.stop_time_updates[0].stop_name))
+
+# Get each piece of this information separately:
+# print(train.direction)
+
+# print(train.route_id)
+
+# print(train.headsign_text)
+
+# print(train.departure_time)
+
+# print(train.location)
+# # This is the stop ID corresponding to the southbound platform at 20 Av
+
+# print(train.location_status)
+
+
+# print(train.last_position_update)
