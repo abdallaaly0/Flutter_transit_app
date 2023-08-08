@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'data.dart';
+import 'entites/data.dart';
 //Class for handeling HTTP request to flask API
 
 class PostClient {
