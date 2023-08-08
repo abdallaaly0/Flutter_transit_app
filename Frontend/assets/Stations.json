@@ -1,0 +1,207 @@
+{
+    "A-line": [
+      {
+        "stop_id": "A02",
+        "name": "Inwood-207 St",
+        "lat": 40.868072,
+        "lon": -73.919899,
+        "parent_id": "A02"
+      },
+      {
+        "stop_id": "A03",
+        "name": "Dyckman St",
+        "lat": 40.865491,
+        "lon": -73.927271,
+        "parent_id": "A03"
+      },
+      {
+        "stop_id": "A05",
+        "name": "190 St",
+        "lat": 40.859022,
+        "lon": -73.93418,
+        "parent_id": "A05"
+      },
+      {
+        "stop_id": "A06",
+        "name": "181 St",
+        "lat": 40.851695,
+        "lon": -73.937969,
+        "parent_id": "A06"
+      },
+      {
+        "stop_id": "A07",
+        "name": "175 St",
+        "lat": 40.847391,
+        "lon": -73.939704,
+        "parent_id": "A07"
+      },
+      {
+        "stop_id": "A09",
+        "name": "168 St",
+        "lat": 40.840719,
+        "lon": -73.939561,
+        "parent_id": "112"
+      },
+      {
+        "stop_id": "A12",
+        "name": "145 St",
+        "lat": 40.824783,
+        "lon": -73.944216,
+        "parent_id": "A12"
+      },
+      {
+        "stop_id": "A15",
+        "name": "125 St",
+        "lat": 40.811109,
+        "lon": -73.952343,
+        "parent_id": "A15"
+      },
+      {
+        "stop_id": "A24",
+        "name": "59 St-Columbus Circle",
+        "lat": 40.768296,
+        "lon": -73.981736,
+        "parent_id": "125"
+      },
+      {
+        "stop_id": "A27",
+        "name": "42 St-Port Authority Bus Terminal",
+        "lat": 40.757308,
+        "lon": -73.989735,
+        "parent_id": "127"
+      },
+      {
+        "stop_id": "A28",
+        "name": "34 St-Penn Station",
+        "lat": 40.752287,
+        "lon": -73.993391,
+        "parent_id": "A28"
+      },
+      {
+        "stop_id": "A31",
+        "name": "14 St",
+        "lat": 40.740893,
+        "lon": -74.00169,
+        "parent_id": "A31"
+      },
+      {
+        "stop_id": "A32",
+        "name": "W 4 St-Wash Sq",
+        "lat": 40.732338,
+        "lon": -74.000495,
+        "parent_id": "A32"
+      },
+      {
+        "stop_id": "A34",
+        "name": "Canal St",
+        "lat": 40.720824,
+        "lon": -74.005229,
+        "parent_id": "A34"
+      },
+      {
+        "stop_id": "A36",
+        "name": "Chambers St",
+        "lat": 40.714111,
+        "lon": -74.008585,
+        "parent_id": "228"
+      },
+      {
+        "stop_id": "A38",
+        "name": "Fulton St",
+        "lat": 40.710197,
+        "lon": -74.007691,
+        "parent_id": "229"
+      },
+      {
+        "stop_id": "A40",
+        "name": "High St",
+        "lat": 40.699337,
+        "lon": -73.990531,
+        "parent_id": "A40"
+      },
+      {
+        "stop_id": "A41",
+        "name": "Jay St-MetroTech",
+        "lat": 40.692338,
+        "lon": -73.987342,
+        "parent_id": "A41"
+      },
+      {
+        "stop_id": "A42",
+        "name": "Hoyt-Schermerhorn Sts",
+        "lat": 40.688484,
+        "lon": -73.985001,
+        "parent_id": "A42"
+      },
+      {
+        "stop_id": "A48",
+        "name": "Utica Av",
+        "lat": 40.679364,
+        "lon": -73.930729,
+        "parent_id": "A48"
+      },
+      {
+        "stop_id": "A51",
+        "name": "Broadway Junction",
+        "lat": 40.678334,
+        "lon": -73.905316,
+        "parent_id": "A51"
+      },
+      {
+        "stop_id": "A55",
+        "name": "Euclid Av",
+        "lat": 40.675377,
+        "lon": -73.872106,
+        "parent_id": "A55"
+      },
+      {
+        "stop_id": "A57",
+        "name": "Grant Av",
+        "lat": 40.677044,
+        "lon": -73.86505,
+        "parent_id": "A57"
+      },
+      {
+        "stop_id": "A59",
+        "name": "80 St",
+        "lat": 40.679371,
+        "lon": -73.858992,
+        "parent_id": "A59"
+      },
+      {
+        "stop_id": "A60",
+        "name": "88 St",
+        "lat": 40.679843,
+        "lon": -73.85147,
+        "parent_id": "A60"
+      },
+      {
+        "stop_id": "A61",
+        "name": "Rockaway Blvd",
+        "lat": 40.680429,
+        "lon": -73.843853,
+        "parent_id": "A61"
+      },
+      {
+        "stop_id": "A63",
+        "name": "104 St",
+        "lat": 40.681711,
+        "lon": -73.837683,
+        "parent_id": "A63"
+      },
+      {
+        "stop_id": "A64",
+        "name": "111 St",
+        "lat": 40.684331,
+        "lon": -73.832163,
+        "parent_id": "A64"
+      },
+      {
+        "stop_id": "A65",
+        "name": "Ozone Park-Lefferts Blvd",
+        "lat": 40.685951,
+        "lon": -73.825798,
+        "parent_id": "A65"
+      }
+    ]
+    }
