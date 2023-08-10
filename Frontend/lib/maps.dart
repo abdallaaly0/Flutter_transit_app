@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_transit_app/widgets/panel_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:logger/logger.dart';
@@ -8,6 +9,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'entites/stations.dart';
 import 'dart:convert';
+
+import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 var logger = Logger();
 
@@ -19,27 +22,36 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  List<ALine> AtrainMarkers = [];
-  Set<Marker> _markers = {};
+  List<ALine> aTrainMarkers = [];
+  Set<Marker> markers = {};
+  Set<Polyline> polylines = {};
 
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/Stations.json');
     final data = Stations.fromJson(jsonDecode(response));
     setState(() {
-      AtrainMarkers = data.aLine;
+      aTrainMarkers = data.aLine;
     });
-
+    List<LatLng> aRoute = [];
     // List of Markers Added on Google Map
-    for (int i = 0; i < AtrainMarkers.length; i++) {
-      _markers.add(
+    for (int i = 0; i < aTrainMarkers.length; i++) {
+      markers.add(
         Marker(
-            markerId: MarkerId(AtrainMarkers[i].parentId),
-            position: LatLng(AtrainMarkers[i].lat, AtrainMarkers[i].lon),
+            markerId: MarkerId(aTrainMarkers[i].parentId),
+            position: LatLng(aTrainMarkers[i].lat, aTrainMarkers[i].lon),
             infoWindow: InfoWindow(
-              title: AtrainMarkers[i].name,
+              title: aTrainMarkers[i].name,
             )),
       );
+      //Add coordaintes of stations
+      aRoute.add(LatLng(aTrainMarkers[i].lat, aTrainMarkers[i].lon));
     }
+    //Add Polylines
+    polylines.add(Polyline(
+      polylineId: const PolylineId("1"),
+      points: aRoute,
+      width: 5,
+    ));
   } //LoadsJson file
 
   final Completer<GoogleMapController> _controller =
@@ -88,7 +100,7 @@ class MapSampleState extends State<MapSample> {
   void initState() {
     super.initState();
     readJson(); //Read local Json file and setMarkers
-    print(AtrainMarkers);
+    print(aTrainMarkers);
   }
 
   @override
@@ -102,7 +114,11 @@ class MapSampleState extends State<MapSample> {
               onMapCreated: (GoogleMapController controller) {
                 _controller.complete(controller);
               },
-              markers: _markers,
+              markers: markers,
+              polylines: polylines,
+            ),
+            SlidingUpPanel(
+              panelBuilder: (sc) => PanelWidget(controller: sc),
             ),
           ],
         ),
