@@ -45,6 +45,7 @@ dependencies:
   protobuf: ^2.1.0
   latlong2: ^0.8.1
   http: ^0.13.6
+  sliding_up_panel: ^2.0.0+1
 
 
 dev_dependencies:
