@@ -26,10 +26,15 @@ class MapSampleState extends State<MapSample> {
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
 
+/* The function below reads a .json file from the assets folder which contains
+  Train station locations. Using the data from the .json file the google map
+  is filled with markers and polylines based on the coordinats of each station */
+
   Future<void> readJson() async {
     final String response = await rootBundle.loadString('assets/Stations.json');
     final data = Stations.fromJson(jsonDecode(response));
     setState(() {
+      //Data from .json file
       aTrainMarkers = data.aLine;
     });
     List<LatLng> aRoute = [];
@@ -105,36 +110,42 @@ class MapSampleState extends State<MapSample> {
 
   @override
   Widget build(BuildContext context) {
+    //ajust hight of sliding panel on screen
+    final panelHeightClosed = MediaQuery.of(context).size.height * 0.3;
+    final panelHeightOpen = MediaQuery.of(context).size.height * 0.5;
     return Scaffold(
-        body: Stack(
-          children: [
-            GoogleMap(
-              mapType: MapType.normal,
-              initialCameraPosition: _kGooglePlex,
-              onMapCreated: (GoogleMapController controller) {
-                _controller.complete(controller);
-              },
-              markers: markers,
-              polylines: polylines,
+      body: Stack(
+        children: [
+          GoogleMap(
+            mapType: MapType.normal,
+            initialCameraPosition: _kGooglePlex,
+            onMapCreated: (GoogleMapController controller) {
+              _controller.complete(controller);
+            },
+            markers: markers,
+            polylines: polylines,
+          ),
+          Padding(
+            // Adjust the left value as needed
+            padding: const EdgeInsets.only(top: 100.0, left: 10.0),
+            child: FloatingActionButton(
+              onPressed: () =>
+                  _goToCurrentLocation(), // Call _goToCurrentLocation() method
+              child: const Icon(Icons.my_location),
             ),
-            SlidingUpPanel(
-              panelBuilder: (sc) => PanelWidget(controller: sc),
-            ),
-          ],
-        ),
-        floatingActionButton: Stack(
-          children: [
-            Positioned(
-              bottom: 90.0, // Adjust the bottom value as needed
-              right: 0.0, // Adjust the left value as needed
-              child: FloatingActionButton(
-                onPressed: () =>
-                    _goToCurrentLocation(), // Call _goToCurrentLocation() method
-                child: const Icon(Icons.my_location),
-              ),
-            ),
-          ],
-        ));
+          ),
+          SlidingUpPanel(
+            parallaxEnabled: true,
+            parallaxOffset: 0.5,
+            minHeight: panelHeightClosed,
+            maxHeight: panelHeightOpen,
+            panelBuilder: (sc) => PanelWidget(controller: sc),
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(30.0)),
+          ),
+        ],
+      ),
+    );
   }
 
 /*   Future<void> _searchLocation() async {

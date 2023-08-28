@@ -77,6 +77,8 @@ flutter:
   assets: 
       - assets/
       - assets/Stations.json
+      - assets/TrainCardImages/
+      - assets/TrainCardImages/a.png
 
 
   # An image asset can refer to one or more resolution-specific "variants", see
