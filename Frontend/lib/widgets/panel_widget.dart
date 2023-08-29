@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_transit_app/widgets/homepanel.dart';
+import 'timepanel.dart';
+import 'package:flutter_transit_app/globals.dart';
 
 //Widget That describes what is seen in the sliding up panel
 
-class PanelWidget extends StatelessWidget {
+Globals cardclicked = Globals.intial(view: false);
+
+class PanelWidget extends StatefulWidget {
   final ScrollController controller;
 
   const PanelWidget({
@@ -11,31 +16,22 @@ class PanelWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => ListView(
-        controller: controller,
-        padding: EdgeInsets.zero,
-        children: [
-          const SizedBox(height: 36),
-          buildAboutText(),
-          const SizedBox(
-            height: 24,
-          ),
-        ],
-      );
+  State<PanelWidget> createState() => PanelWidgetState();
+}
 
-  Widget buildAboutText() => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
-              Text(
-                'About',
-                style: TextStyle(fontWeight: FontWeight.w600),
-              ),
-              SizedBox(height: 12),
-              Text(
-                'New York City is one of the most known cities-s',
-              )
-            ]),
-      );
+class PanelWidgetState extends State<PanelWidget> {
+  void inistate() {
+    cardclicked.view = false;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(child: HomePanel(controller: widget.controller));
+  }
+
+  // void onCardClick() {
+  //   setState((){
+
+  //   })
+  // }
 }
