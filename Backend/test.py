@@ -1,51 +1,29 @@
-from nyct_gtfs import NYCTFeed
+from flask import Flask, jsonify
+import random
+import time
 
-# load feed, input feed and api_key
+app = Flask(__name__)
 
-feed1 = NYCTFeed("A", api_key="5zisyVOSabaBzo4djN7cS9AS6uNbXMfChhoFoWL7")
-# feed2 = NYCTFeed("B", api_key="YOUR_MTA_API_KEY_GOES_HERE")
-# feed3 = NYCTFeed("B", api_key="YOUR_MTA_API_KEY_GOES_HERE")
-# feed4 = NYCTFeed("B", api_key="YOUR_MTA_API_KEY_GOES_HERE")
-# feed5 = NYCTFeed("B", api_key="YOUR_MTA_API_KEY_GOES_HERE")
-# feed6 = NYCTFeed("B", api_key="YOUR_MTA_API_KEY_GOES_HERE")
-# feed7 = NYCTFeed("B", api_key="YOUR_MTA_API_KEY_GOES_HERE")
+# Simulated temperature data
+temperature_data = 20.0
 
-# input_station is the station we want to get information from. 
-# we need a better way to automatically get an input such as through google maps
+# Function to update temperature data periodically (simulated)
+def update_temperature_data():
+    while True:
+        global temperature_data
+        temperature_data = round(random.uniform(18.0, 25.0), 2)
+        time.sleep(5)  # Update every 5 seconds
 
-input_station = "Dyckman St"
-# read a particular train [train1] (use 1st one) 
-# or a group of them [trains1] (like BDFM, use second)
-# i'll be using trains1 as an example for the rest of the program
+# Start the data update thread
+import threading
+update_thread = threading.Thread(target=update_temperature_data)
+update_thread.daemon = True
+update_thread.start()
 
-train1 = feed1.filter_trips(line_id="A",underway= True,travel_direction="N")
-print(train1)
-trains1 = feed1.trips
-print(trains1)
+@app.route('/api/temperature', methods=['GET'])
+def get_temperature():
+    global temperature_data
+    return jsonify({'temperature': temperature_data})
 
-# get number of trains and the amount of stops left
-# & make an index & a string placeholder for the station summary 
-# [trains1_sum for summary of train and trains1_str for a readable str of that summary]
-
-num_trains = len(trains1)
-num_stops = len(trains1.stop_time_updates)
-i = 0
-j = 0
-
-# read each train from feed and in the nested loop read their upcoming stops
-# when a train with a stop that equals input_station is found, print train symbol and time
-
-while(i < num_trains):
-	trains1_sum = feed1.trips[i]
-	trains1_str = str(trains1_sum)
-	
-	while(j < num_stops):
-		stop_str = trains1.stop_time_updates[j]
-
-		if(input_station in trains1_str):
-			print(trains1.route_id)
-			print(trains1.stop_time_updates[j].stop_id)
-		
-	
-
-	
+if __name__ == '__main__':
+     app.run(host='0.0.0.0')

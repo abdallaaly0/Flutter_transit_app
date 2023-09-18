@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+/* This file controlls what is seen in the sliding panel when the CardWidget 
+is clicked  */
+
 class TimePanel extends StatelessWidget {
   final ScrollController controller;
 

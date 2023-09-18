@@ -5,12 +5,13 @@ import 'package:flutter_transit_app/widgets/cardpanel_widget.dart';
    CardPanel widget and should show the nearest stations based on a marker.
    This is the default panel shown when the Tranist app is loaded.
 */
-class HomePanel extends StatelessWidget {
+class HomePanelView extends StatelessWidget {
   final ScrollController controller;
-
-  const HomePanel({
+  final VoidCallback callback;
+  const HomePanelView({
     Key? key,
     required this.controller,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -31,11 +32,23 @@ class HomePanel extends StatelessWidget {
         ),
         const SizedBox(height: 26),
         CardPanel(
-            card_color: Colors.blueGrey,
-            stationName: "stationName",
-            train_time: "9",
-            train_direction: "Train_direction",
-            train_type: "train_type"),
+          card_color: Colors.blueGrey,
+          stationName: "stationName",
+          train_time: "9",
+          train_direction: "Train_direction",
+          train_type: "train_type",
+          train_icon: "a",
+          callback: callback,
+        ),
+        CardPanel(
+          card_color: Colors.blueGrey,
+          stationName: "stationName",
+          train_time: "8",
+          train_direction: "Train_direction",
+          train_type: "train_type",
+          train_icon: "b",
+          callback: callback,
+        ),
       ],
     );
   }
