@@ -8,6 +8,8 @@ class CardPanel extends StatelessWidget {
   final String train_time;
   final String train_direction;
   final String train_type;
+  final VoidCallback callback;
+  final String train_icon;
 
   CardPanel({
     super.key,
@@ -16,17 +18,18 @@ class CardPanel extends StatelessWidget {
     required this.train_time,
     required this.train_direction,
     required this.train_type,
+    required this.callback,
+    required this.train_icon,
   });
 
 //When the card is clicked perform the following things
-  void onCardClick() {}
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         height: 130,
         child: GestureDetector(
-          onTap: onCardClick,
+          onTap: callback,
           child: Card(
             color: card_color,
             margin: const EdgeInsets.all(8.0),
@@ -42,7 +45,7 @@ class CardPanel extends StatelessWidget {
                   height: 50.0,
                   width: 50.0,
                   child: Image.asset(
-                    "assets/TrainCardImages/a.png",
+                    "assets/TrainIcons/$train_icon.png",
                   ),
                 ),
               ),
