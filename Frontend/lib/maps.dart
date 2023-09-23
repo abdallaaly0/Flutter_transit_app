@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_transit_app/screens/train_list.dart';
 import 'package:flutter_transit_app/widgets/panel_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
@@ -134,7 +135,8 @@ class MapSampleState extends State<MapSample> {
               child: const Icon(Icons.my_location),
             ),
           ),
-          SlidingUpPanel(
+
+          /*SlidingUpPanel(
             parallaxEnabled: true,
             parallaxOffset: 0.5,
             minHeight: panelHeightClosed,
@@ -143,7 +145,31 @@ class MapSampleState extends State<MapSample> {
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(30.0)),
           ),
+          */
         ],
+      ),
+      //button to get to train list
+      bottomNavigationBar: Container(
+        height: 60,
+        color: Colors.black12,
+        child: InkWell(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const TrainListScreen()),
+          ),
+          child: Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.star,
+                  color: Theme.of(context).accentColor,
+                ),
+                Text('Train List'),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

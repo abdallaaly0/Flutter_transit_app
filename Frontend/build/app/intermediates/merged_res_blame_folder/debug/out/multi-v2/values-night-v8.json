@@ -4,31 +4,7 @@
             "outputFile": "com.example.flutter_transit_app-mergeDebugResources-14:/values-night-v8/values-night-v8.xml",
             "map": [
                 {
-                    "source": "/Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/res/values-night/styles.xml",
-                    "from": {
-                        "startLines": "3,-1",
-                        "startColumns": "4,-1",
-                        "startOffsets": "172,-1",
-                        "endLines": "7,-1",
-                        "endColumns": "12,-1",
-                        "endOffsets": "475,-1"
-                    },
-                    "to": {
-                        "startLines": "2,6",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,236",
-                        "endLines": "5,8",
-                        "endColumns": "12,12",
-                        "endOffsets": "231,400"
-                    }
-                }
-            ]
-        },
-        {
-            "outputFile": "/Users/veraldval/.gradle/daemon/7.5/com.example.flutter_transit_app-mergeDebugResources-14:/values-night-v8/values-night-v8.xml",
-            "map": [
-                {
-                    "source": "/Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/res/values-night/styles.xml",
+                    "source": "C:\\Users\\99per\\development\\projects\\flutter_transit_app\\Flutter_transit_app\\Frontend\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

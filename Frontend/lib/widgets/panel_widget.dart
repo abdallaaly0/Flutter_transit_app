@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_transit_app/PanelViews/homepanel.dart';
 import '../PanelViews/timepanel.dart';
@@ -44,3 +45,4 @@ class PanelWidgetState extends State<PanelWidget> {
     });
   }
 }
+*/
