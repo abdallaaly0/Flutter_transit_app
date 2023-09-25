@@ -1,29 +1,32 @@
 from flask import Flask, jsonify
-import random
 import time
+import functions
+
 
 app = Flask(__name__)
 
-# Simulated temperature data
-temperature_data = 20.0
+            
+#Defalut time
+train_time = 0
 
-# Function to update temperature data periodically (simulated)
-def update_temperature_data():
+# Function to get new A train time every 30 seconds
+def update_train_time():
     while True:
-        global temperature_data
-        temperature_data = round(random.uniform(18.0, 25.0), 2)
-        time.sleep(5)  # Update every 5 seconds
+        global train_time
+        train_time=functions.A_train_stop_time("A48N")
+        time.sleep(30)  # Update every 30 seconds
+
 
 # Start the data update thread
 import threading
-update_thread = threading.Thread(target=update_temperature_data)
+update_thread = threading.Thread(target=update_train_time)
 update_thread.daemon = True
 update_thread.start()
 
-@app.route('/api/temperature', methods=['GET'])
-def get_temperature():
-    global temperature_data
-    return jsonify({'temperature': temperature_data})
+@app.route('/api/train-time', methods=['GET'])
+def get_time():
+    global train_time
+    return jsonify({'train time': train_time})
 
 if __name__ == '__main__':
      app.run(host='0.0.0.0')
