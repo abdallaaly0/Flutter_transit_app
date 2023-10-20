@@ -25,10 +25,10 @@ class HomePanelViewState extends State<HomePanelView> {
   final DataFetcher _dataFetcher = DataFetcher();
 
   String estimatedTime = "0";
-  @override
+
   void inistate() async {
-    estimatedTime = _dataFetcher.fetchATrainData().toString();
     super.initState();
+    estimatedTime = _dataFetcher.fetchATrainData().toString();
   }
 
   @override
@@ -55,13 +55,36 @@ class HomePanelViewState extends State<HomePanelView> {
           const SizedBox(height: 26),
           CardPanel(
             card_color: Colors.blueGrey,
-            stationName: "stationName",
+            stationName: "High St",
             train_time: estimatedTime,
-            train_direction: "Train_direction",
-            train_type: "train_type",
+            train_direction: "Brooklyn & Manhattan",
+            train_id: "A40N",
             train_icon: "a",
-            callback: widget.callback,
           ),
+          CardPanel(
+            card_color: Colors.blueGrey,
+            stationName: "207 St",
+            train_time: estimatedTime,
+            train_direction: "Manhattan",
+            train_id: "108N",
+            train_icon: "1",
+          ),
+          CardPanel(
+              card_color: Colors.blueGrey,
+              stationName: "161 St-Yankee Stadium",
+              train_time: estimatedTime,
+              train_direction: "train_direction",
+              train_id: "414N",
+              train_icon: "4")
+          // CardPanel(
+          //   card_color: Colors.blueGrey,
+          //   stationName: "9 Av",
+          //   train_time: estimatedTime,
+          //   train_direction: "Manhattan & The Bronx",
+          //   train_id: "B12N",
+          //   train_icon: "d",
+          //   callback: widget.callback,
+          // ),
         ],
       ),
     );

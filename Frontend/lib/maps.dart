@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_transit_app/DataFetcher.dart';
+import 'package:flutter_transit_app/screens/SubwayLinesScreen.dart';
 import 'package:flutter_transit_app/widgets/panel_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geocoding/geocoding.dart';
@@ -22,9 +24,10 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  List<ALine> aTrainMarkers = [];
+  List<Line> aTrainMarkers = [];
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
+  List<Line> oneTrainMarkers = [];
 
 /* The function below reads a .json file from the assets folder which contains
   Train station locations. Using the data from the .json file the google map
@@ -35,14 +38,14 @@ class MapSampleState extends State<MapSample> {
     final data = Stations.fromJson(jsonDecode(response));
     setState(() {
       //Data from .json file
-      aTrainMarkers = data.aLine;
+      aTrainMarkers = data.lineA;
     });
     List<LatLng> aRoute = [];
     // List of Markers Added on Google Map
     for (int i = 0; i < aTrainMarkers.length; i++) {
       markers.add(
         Marker(
-            markerId: MarkerId(aTrainMarkers[i].parentId),
+            markerId: MarkerId(aTrainMarkers[i].parentStation),
             position: LatLng(aTrainMarkers[i].lat, aTrainMarkers[i].lon),
             infoWindow: InfoWindow(
               title: aTrainMarkers[i].name,
@@ -51,6 +54,7 @@ class MapSampleState extends State<MapSample> {
       //Add coordaintes of stations
       aRoute.add(LatLng(aTrainMarkers[i].lat, aTrainMarkers[i].lon));
     }
+
     //Add Polylines
     polylines.add(Polyline(
       polylineId: const PolylineId("1"),
@@ -144,6 +148,29 @@ class MapSampleState extends State<MapSample> {
                 const BorderRadius.vertical(top: Radius.circular(30.0)),
           ),
         ],
+      ),
+      //button to get to train list
+      bottomNavigationBar: Container(
+        height: 60,
+        color: Colors.black12,
+        child: InkWell(
+          onTap: () => Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const SubwayLinesScreen()),
+          ),
+          child: Padding(
+            padding: EdgeInsets.only(top: 8.0),
+            child: Column(
+              children: <Widget>[
+                Icon(
+                  Icons.star,
+                  color: Theme.of(context).accentColor,
+                ),
+                Text('Train List'),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }

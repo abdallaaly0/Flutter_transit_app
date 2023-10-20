@@ -9,42 +9,45 @@ Stations stationsFromJson(String str) => Stations.fromJson(json.decode(str));
 String stationsToJson(Stations data) => json.encode(data.toJson());
 
 class Stations {
-  List<ALine> aLine;
+  List<Line> lineA;
+  List<Line> line1;
 
   Stations({
-    required this.aLine,
+    required this.line1,
+    required this.lineA,
   });
 
   factory Stations.fromJson(Map<String, dynamic> json) => Stations(
-        aLine: List<ALine>.from(json["A-line"].map((x) => ALine.fromJson(x))),
-      );
+      line1: List<Line>.from(json["1"].map((x) => Line.fromJson(x))),
+      lineA:
+          List<Line>.from(json["A-FarRockaway"].map((x) => Line.fromJson(x))));
 
   Map<String, dynamic> toJson() => {
-        "A-line": List<dynamic>.from(aLine.map((x) => x.toJson())),
+        "1": List<dynamic>.from(lineA.map((x) => x.toJson())),
       };
 }
 
-class ALine {
-  String stopId;
+class Line {
+  dynamic stopId;
   String name;
   double lat;
   double lon;
-  String parentId;
+  dynamic parentStation;
 
-  ALine({
+  Line({
     required this.stopId,
     required this.name,
     required this.lat,
     required this.lon,
-    required this.parentId,
+    required this.parentStation,
   });
 
-  factory ALine.fromJson(Map<String, dynamic> json) => ALine(
-        stopId: json["stop_id"],
+  factory Line.fromJson(Map<String, dynamic> json) => Line(
+        stopId: json["stop_id"]?.toString(),
         name: json["name"],
         lat: json["lat"]?.toDouble(),
         lon: json["lon"]?.toDouble(),
-        parentId: json["parent_id"],
+        parentStation: json["parent_station"]?.toString(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -52,6 +55,6 @@ class ALine {
         "name": name,
         "lat": lat,
         "lon": lon,
-        "parent_id": parentId,
+        "parent_station": parentStation,
       };
 }

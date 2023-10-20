@@ -80,7 +80,9 @@ flutter:
       - assets/TrainIcons/a.png
       - assets/TrainIcons/b.png
       - assets/TrainIcons/c.png
-
+      - assets/TrainIcons/1.png
+      - assets/TrainIcons/d.png
+      - assets/TrainIcons/4.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

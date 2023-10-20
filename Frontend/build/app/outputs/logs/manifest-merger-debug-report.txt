@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 application
-INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:3:4-41:19
+INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:3:4-43:19
 MERGED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-17:19
 MERGED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-17:19
 MERGED from [:location] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-18:19
@@ -26,11 +26,11 @@ MERGED from [androidx.versionedparcelable:versionedparcelable:1.1.1] /Users/vera
 	android:name
 		INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml
 manifest
-ADDED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-42:12
-INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-42:12
-INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-42:12
-INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-42:12
-MERGED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-42:12
+ADDED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-44:12
+INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-44:12
+INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-44:12
+INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-44:12
+MERGED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-44:12
 MERGED from [:permission_handler_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:google_maps_flutter_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/google_maps_flutter_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:flutter_plugin_android_lifecycle] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
@@ -69,11 +69,11 @@ INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/andro
 		INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/debug/AndroidManifest.xml
 	android:versionName
 		INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-42:12
+		ADDED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-44:12
 		INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/debug/AndroidManifest.xml
 	android:versionCode
 		INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml
-		ADDED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-42:12
+		ADDED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:1-44:12
 		INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/debug/AndroidManifest.xml
 	xmlns:android
 		ADDED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:1:11-69
