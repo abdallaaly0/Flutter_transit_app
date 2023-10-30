@@ -51,6 +51,8 @@ def A_train_stop_time(StationID: str):
         return arrival_time_list[1]
     else:
         return arrival_time_list[0]
+
+
 # input="7"
 # x=5
 # feed2 = NYCTFeed(input, api_key="5zisyVOSabaBzo4djN7cS9AS6uNbXMfChhoFoWL7")

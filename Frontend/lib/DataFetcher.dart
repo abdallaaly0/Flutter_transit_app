@@ -1,8 +1,9 @@
 import 'dart:convert';
-import 'package:flutter_transit_app/entites/stations.dart';
+// import 'package:flutter_transit_app/entites/stations.dart';
 import 'package:http/http.dart' as http;
-import 'entites/data.dart';
+import '../assets/StationData.dart';
 import 'package:flutter/services.dart';
+
 //This class is used for fetching and serving data to app
 
 class DataFetcher {
@@ -13,13 +14,29 @@ class DataFetcher {
   static const postEndpoint = "$baseURL/api/response";
   static const JsonFilePath = "assets/Stations.json";
 
-  /* This class function returns a dynamic list of data */
+  /* /* This class function returns a dynamic list of data */
   Future<Map<String, List<Line>>> loadJsonData(String line) async {
     Map<String, List<Line>> data = {};
     final String jsonString = await rootBundle.loadString(JsonFilePath);
     final jsonData = Stations.fromJson(jsonDecode(jsonString));
     return data;
     // Use the data as needed in your Flutter app.
+  } */
+
+  /* Creates a List based on the station ID's in each route */
+  List<dynamic> getStationInfo(String line) {
+    List<dynamic> DataList = List.empty(growable: true);
+    /* Get route IDs for "line" */
+    for (int i = 0; i < Lines_NorthBound[line]!.length; i++) {
+      String desiredID = Lines_NorthBound[line]!.elementAt(i);
+      for (int i = 0; i < Stations["Stations"]!.length; i++) {
+        if (Stations["Stations"]!.elementAt(i)['stop_id'].toString() ==
+            desiredID) {
+          DataList.add(Stations["Stations"]!.elementAt(i));
+        }
+      }
+    }
+    return DataList;
   }
 
   Future<int> fetchATrainData() async {
@@ -54,5 +71,15 @@ class DataFetcher {
     // } else {
     //   throw Exception('Failed to load post:');
     // }
+  }
+
+  /* Function For getting MapStyle */
+  String getMapStyle() {
+    late String _mapStyle;
+    rootBundle.loadString('assets/map_style.txt').then((string) {
+      _mapStyle = string;
+      print(_mapStyle);
+    });
+    return _mapStyle;
   }
 }

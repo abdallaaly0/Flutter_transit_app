@@ -75,8 +75,8 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
   assets: 
+      - assets/map_style.txt
       - assets/Stations.json
-  
       - assets/TrainIcons/a.png
       - assets/TrainIcons/b.png
       - assets/TrainIcons/c.png

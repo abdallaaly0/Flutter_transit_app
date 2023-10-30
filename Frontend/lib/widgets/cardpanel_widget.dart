@@ -5,6 +5,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_transit_app/DataFetcher.dart';
 
+import '../globals.dart';
+
 class CardPanel extends StatefulWidget {
   final String stationName;
   final Color card_color;
@@ -31,6 +33,7 @@ class CardPanelState extends State<CardPanel> {
   late String icon;
   Duration callrate = const Duration(seconds: 30);
   Timer? timer;
+  Globals Statetimer = Globals.intial(timer: true);
 //When the card is clicked perform the following things
   Future<void> initEstimatedTime() async {
     String data = await DataFetcher().Foo(widget.train_id);
@@ -47,43 +50,54 @@ class CardPanelState extends State<CardPanel> {
     icon = widget.train_icon;
     print("InitalState");
     super.initState();
-    timer = Timer.periodic(callrate, (Timer t) => onClick());
+    timer = Timer.periodic(callrate, (Timer t) => onUpdate());
+  }
+
+  @override
+  void deactivate() {
+    print("deactivate");
+    if (timer!.isActive) {
+      timer!.cancel();
+    } else {
+      timer!.cancel();
+    }
+    super.deactivate();
   }
 
   @override
   void dispose() {
     print("dispose");
-    timer?.cancel();
+    timer!.cancel();
     super.dispose();
   }
 
-  void onClick() async {
-    String data = await DataFetcher().Foo(widget.train_id);
-    int current_estimated_time = int.parse(estimatedTime);
-    print("Current estimated time: $current_estimated_time");
-    print("Estimated time: $estimatedTime");
-    int api_new_time = int.parse(data);
-    print("api time: $api_new_time");
-    /* If api pulled time is different for current data update card widget */
-    if (current_estimated_time != api_new_time) {
-      print("Update card");
-      setState(() {
-        estimatedTime = data;
-      });
-    } else {
-      print("Do not update card");
+  void onUpdate() async {
+    if (Statetimer.Cardtimer) {
+      print("State Timer: ${Statetimer.Cardtimer}");
+      String data = await DataFetcher().Foo(widget.train_id);
+      int current_estimated_time = int.parse(estimatedTime);
+      print("Current estimated time: $current_estimated_time");
+      print("Estimated time: $estimatedTime");
+      int api_new_time = int.parse(data);
+      print("api time: $api_new_time");
+      /* If api pulled time is different for current data update card widget */
+      if (current_estimated_time != api_new_time) {
+        print("Update card");
+        setState(() {
+          estimatedTime = data;
+        });
+      } else {
+        print("Do not update card");
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    // if (estimatedTime == "") {
-    //   onClick();
-    // }
     return SizedBox(
         height: 130,
         child: GestureDetector(
-          onTap: onClick,
+          onTap: () => {timer!.cancel()},
           child: Card(
             color: widget.card_color,
             margin: const EdgeInsets.all(8.0),

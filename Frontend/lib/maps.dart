@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_transit_app/DataFetcher.dart';
+import 'package:flutter_transit_app/globals.dart';
 import 'package:flutter_transit_app/screens/SubwayLinesScreen.dart';
 import 'package:flutter_transit_app/widgets/panel_widget.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -28,6 +29,7 @@ class MapSampleState extends State<MapSample> {
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
   List<Line> oneTrainMarkers = [];
+  late String _mapStyle;
 
 /* The function below reads a .json file from the assets folder which contains
   Train station locations. Using the data from the .json file the google map
@@ -107,9 +109,15 @@ class MapSampleState extends State<MapSample> {
 
   @override
   void initState() {
-    super.initState();
+    rootBundle.loadString('assets/map_style.txt').then((string) {
+      _mapStyle = string;
+      print(_mapStyle);
+    });
     readJson(); //Read local Json file and setMarkers
     print(aTrainMarkers);
+    //Set timer for cards
+    Globals.intial(timer: true);
+    super.initState();
   }
 
   @override
@@ -125,6 +133,7 @@ class MapSampleState extends State<MapSample> {
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
+              controller.setMapStyle(_mapStyle);
             },
             markers: markers,
             polylines: polylines,
