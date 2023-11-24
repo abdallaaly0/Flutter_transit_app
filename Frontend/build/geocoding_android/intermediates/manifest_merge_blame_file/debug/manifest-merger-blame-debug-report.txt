@@ -4,8 +4,8 @@
 4
 5    <uses-sdk
 6        android:minSdkVersion="16"
-6-->/Users/veraldval/.pub-cache/hosted/pub.dev/geocoding_android-2.1.0/android/src/main/AndroidManifest.xml
+6-->/Users/veraldval/.pub-cache/hosted/pub.dev/geocoding_android-2.1.2/android/src/main/AndroidManifest.xml
 7        android:targetSdkVersion="16" />
-7-->/Users/veraldval/.pub-cache/hosted/pub.dev/geocoding_android-2.1.0/android/src/main/AndroidManifest.xml
+7-->/Users/veraldval/.pub-cache/hosted/pub.dev/geocoding_android-2.1.2/android/src/main/AndroidManifest.xml
 8
 9</manifest>

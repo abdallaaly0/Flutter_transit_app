@@ -4,9 +4,13 @@ import 'package:flutter_transit_app/globals.dart';
 import 'package:flutter_transit_app/maps.dart';
 import 'package:flutter_transit_app/screens/MapLineScreen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../../assets/StationData.dart';
+import '../data/StationData.dart';
 
-late Globals Statetimer = Globals.intial(timer: false);
+Globals Statetimer = Globals.intial(timer: false);
+void setStateTimer() {
+  Statetimer.setonMapLineScreen(false);
+}
+
 Color getBackgroundColor(String line) {
   switch (line) {
     case 'A':
@@ -55,32 +59,46 @@ Color getTextColor(String line) {
 
 class SubwayLinesScreen extends StatelessWidget {
   const SubwayLinesScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    print("State timer $Statetimer ");
+    setStateTimer();
+    print("State timer ${Statetimer.onMapLineScreen} ");
     return Scaffold(
       appBar: AppBar(
-        title: Text(
+        leading: BackButton(
+          color: Colors.white,
+          onPressed: () {
+            Statetimer.Cardtimer = true;
+            Statetimer.onMapLineScreen = false;
+            Navigator.maybePop(context);
+          },
+        ),
+        backgroundColor: const Color.fromRGBO(33, 32, 32, 1),
+        title: const Text(
           'MTA Subway Lines',
         ),
       ),
       bottomNavigationBar: Container(
         height: 60,
-        color: Colors.black12,
+        color: const Color.fromRGBO(33, 32, 32, 1),
         child: InkWell(
           onTap: () => Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const MapSample()),
           ),
           child: Padding(
-            padding: EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 8.0),
             child: Column(
-              children: <Widget>[
+              children: const <Widget>[
                 Icon(
-                  Icons.star,
-                  color: Theme.of(context).accentColor,
+                  Icons.map,
+                  color: Colors.white,
                 ),
-                Text('Map'),
+                Text('Map',
+                    style: TextStyle(
+                      color: Colors.white,
+                    )),
               ],
             ),
           ),
@@ -142,6 +160,8 @@ class SubwayStopsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setStateTimer();
+    print("State timer ${Statetimer.onMapLineScreen}");
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -153,6 +173,7 @@ class SubwayStopsScreen extends StatelessWidget {
       body: ListView.builder(
         itemCount: stationData.length,
         itemBuilder: (context, index) {
+          final stopID = stationData.elementAt(index)['stop_id'];
           final stop = stationData.elementAt(index)['name'];
           LatLng _stationLocation = LatLng(stationData.elementAt(index)['lat'],
               stationData.elementAt(index)['lon']);
@@ -164,6 +185,8 @@ class SubwayStopsScreen extends StatelessWidget {
                               line: line,
                               stationData: stationData,
                               stationlocation: _stationLocation,
+                              stop: stop,
+                              stopID: stopID.toString(),
                             )),
                   ),
               child: ListTile(

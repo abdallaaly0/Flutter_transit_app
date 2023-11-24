@@ -1,14 +1,14 @@
 -- Merging decision tree log ---
 application
 INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/main/AndroidManifest.xml:3:4-43:19
-MERGED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-17:19
-MERGED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:5-17:19
+MERGED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-15:19
+MERGED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-15:19
 MERGED from [:location] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-18:19
 MERGED from [:location] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:12:5-18:19
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/veraldval/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/veraldval/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:24:5-31:19
-MERGED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:36:5-42:19
-MERGED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:36:5-42:19
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:36:5-42:19
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:36:5-42:19
 MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/veraldval/.gradle/caches/transforms-3/eb987e8abddf2728baa9eff1d27123e6/transformed/jetified-play-services-location-21.0.1/AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/veraldval/.gradle/caches/transforms-3/eb987e8abddf2728baa9eff1d27123e6/transformed/jetified-play-services-location-21.0.1/AndroidManifest.xml:7:5-20
 MERGED from [com.google.android.gms:play-services-base:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/24bd5ae211488322aa8c48f41a7bee4d/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:19:5-23:19
@@ -34,12 +34,12 @@ MERGED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android
 MERGED from [:permission_handler_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/permission_handler_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:google_maps_flutter_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/google_maps_flutter_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:flutter_plugin_android_lifecycle] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/flutter_plugin_android_lifecycle/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
-MERGED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-19:12
+MERGED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-17:12
 MERGED from [:geocoding_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geocoding_android/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-9:12
 MERGED from [:location] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:2:1-20:12
 MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/veraldval/.gradle/caches/transforms-3/006d93cd422dbc43e89591147c2de572/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:17:1-23:12
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/veraldval/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:17:1-33:12
-MERGED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:17:1-44:12
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:17:1-44:12
 MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/veraldval/.gradle/caches/transforms-3/eb987e8abddf2728baa9eff1d27123e6/transformed/jetified-play-services-location-21.0.1/AndroidManifest.xml:2:1-9:12
 MERGED from [com.google.android.gms:play-services-base:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/24bd5ae211488322aa8c48f41a7bee4d/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:16:1-24:12
 MERGED from [com.google.android.gms:play-services-tasks:18.0.2] /Users/veraldval/.gradle/caches/transforms-3/02334ee9d093afcbcec94917848728eb/transformed/jetified-play-services-tasks-18.0.2/AndroidManifest.xml:2:1-6:12
@@ -97,8 +97,8 @@ MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/veraldval/.gradle/
 MERGED from [androidx.window:window-java:1.0.0-beta04] /Users/veraldval/.gradle/caches/transforms-3/006d93cd422dbc43e89591147c2de572/transformed/jetified-window-java-1.0.0-beta04/AndroidManifest.xml:19:5-21:41
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/veraldval/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
 MERGED from [androidx.window:window:1.0.0-beta04] /Users/veraldval/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:20:5-22:41
-MERGED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:20:5-44
-MERGED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:20:5-44
 MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/veraldval/.gradle/caches/transforms-3/eb987e8abddf2728baa9eff1d27123e6/transformed/jetified-play-services-location-21.0.1/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-location:21.0.1] /Users/veraldval/.gradle/caches/transforms-3/eb987e8abddf2728baa9eff1d27123e6/transformed/jetified-play-services-location-21.0.1/AndroidManifest.xml:5:5-44
 MERGED from [com.google.android.gms:play-services-base:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/24bd5ae211488322aa8c48f41a7bee4d/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:18:5-43
@@ -149,24 +149,20 @@ INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/andro
 		INJECTED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/debug/AndroidManifest.xml
 uses-permission#android.permission.INTERNET
 ADDED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/debug/AndroidManifest.xml:7:5-66
-MERGED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:24:5-67
-MERGED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:24:5-67
 	android:name
 		ADDED from /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/android/app/src/debug/AndroidManifest.xml:7:22-64
-uses-permission#android.permission.FOREGROUND_SERVICE
-ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-77
-	android:name
-		ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:9:22-74
 service#com.baseflow.geolocator.GeolocatorLocationService
-ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:9-16:56
+ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:10:9-14:56
 	android:enabled
-		ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-35
+		ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:12:13-35
 	android:exported
-		ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:15:13-37
+		ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-37
 	android:foregroundServiceType
-		ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:16:13-53
+		ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:14:13-53
 	android:name
-		ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:13:13-77
+		ADDED from [:geolocator_android] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/geolocator_android/intermediates/merged_manifest/debug/AndroidManifest.xml:11:13-77
 uses-permission#android.permission.ACCESS_COARSE_LOCATION
 ADDED from [:location] /Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/location/intermediates/merged_manifest/debug/AndroidManifest.xml:9:5-81
 	android:name
@@ -198,27 +194,27 @@ ADDED from [androidx.window:window:1.0.0-beta04] /Users/veraldval/.gradle/caches
 	android:name
 		ADDED from [androidx.window:window:1.0.0-beta04] /Users/veraldval/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/AndroidManifest.xml:29:13-51
 uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:23:5-79
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:23:5-79
 	android:name
-		ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:23:22-76
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:23:22-76
 uses-feature#0x00020000
-ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:26:5-28:35
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:26:5-28:35
 	android:glEsVersion
-		ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:27:9-41
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:27:9-41
 	android:required
-		ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:28:9-32
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:28:9-32
 queries
-ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:30:5-34:15
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:30:5-34:15
 package#com.google.android.apps.maps
-ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:33:9-64
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:33:9-64
 	android:name
-		ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:33:18-61
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:33:18-61
 uses-library#org.apache.http.legacy
-ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:39:9-41:40
+ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:39:9-41:40
 	android:required
-		ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:41:13-37
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:41:13-37
 	android:name
-		ADDED from [com.google.android.gms:play-services-maps:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/a0e34175b89fa528462076cc4208822f/transformed/jetified-play-services-maps-18.1.0/AndroidManifest.xml:40:13-50
+		ADDED from [com.google.android.gms:play-services-maps:18.2.0] /Users/veraldval/.gradle/caches/transforms-3/76dcb37f22f3bbe9deadc7f5863691a5/transformed/jetified-play-services-maps-18.2.0/AndroidManifest.xml:40:13-50
 activity#com.google.android.gms.common.api.GoogleApiActivity
 ADDED from [com.google.android.gms:play-services-base:18.1.0] /Users/veraldval/.gradle/caches/transforms-3/24bd5ae211488322aa8c48f41a7bee4d/transformed/jetified-play-services-base-18.1.0/AndroidManifest.xml:20:9-22:45
 	android:exported
