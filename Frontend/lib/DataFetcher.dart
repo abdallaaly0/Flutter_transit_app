@@ -1,7 +1,7 @@
 import 'dart:convert';
 // import 'package:flutter_transit_app/entites/stations.dart';
 import 'package:http/http.dart' as http;
-import '../assets/StationData.dart';
+import 'data/StationData.dart';
 import 'package:flutter/services.dart';
 
 //This class is used for fetching and serving data to app
@@ -12,16 +12,7 @@ class DataFetcher {
   static const atrainEndpoint =
       "$baseURL/api/train-time"; //Adds '/Atrain' to baseURL
   static const postEndpoint = "$baseURL/api/response";
-  static const JsonFilePath = "assets/Stations.json";
-
-  /* /* This class function returns a dynamic list of data */
-  Future<Map<String, List<Line>>> loadJsonData(String line) async {
-    Map<String, List<Line>> data = {};
-    final String jsonString = await rootBundle.loadString(JsonFilePath);
-    final jsonData = Stations.fromJson(jsonDecode(jsonString));
-    return data;
-    // Use the data as needed in your Flutter app.
-  } */
+  static const listedTimes = "$baseURL/api/multipule_times";
 
   /* Creates a List based on the station ID's in each route */
   List<dynamic> getStationInfo(String line) {
@@ -52,7 +43,8 @@ class DataFetcher {
   }
 
   /* This function gets train data based on stationID */
-  Future<String> Foo(String stationID) async {
+  Future<String> getTrainTime(String stationID) async {
+    print("Station ID: $stationID");
     final url = Uri.parse(postEndpoint);
     final response =
         await http.post(url, body: json.encode({'name': stationID}));
@@ -73,13 +65,21 @@ class DataFetcher {
     // }
   }
 
-  /* Function For getting MapStyle */
-  String getMapStyle() {
-    late String _mapStyle;
-    rootBundle.loadString('assets/map_style.txt').then((string) {
-      _mapStyle = string;
-      print(_mapStyle);
-    });
-    return _mapStyle;
+  /* Get Train List of Train times for station */
+  Future<List<dynamic>> getTrainTimeList(String stationID) async {
+    List<dynamic> TrainTimes;
+    final url = Uri.parse(listedTimes);
+    final response =
+        await http.post(url, body: json.encode({'name': stationID}));
+    print('Response status: ${response.statusCode}');
+    if (response.statusCode == 200) {
+      final data = json.decode(response.body);
+      TrainTimes = data['name'];
+      return TrainTimes;
+    } else {
+      throw Exception('Failed to load post:');
+    }
   }
+
+  /* Function create lines */
 }

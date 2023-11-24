@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_transit_app/DataFetcher.dart';
+import 'package:flutter_transit_app/data/StationData.dart';
 import 'package:flutter_transit_app/globals.dart';
 import 'package:flutter_transit_app/screens/SubwayLinesScreen.dart';
 import 'package:flutter_transit_app/widgets/panel_widget.dart';
@@ -25,51 +26,64 @@ class MapSample extends StatefulWidget {
 }
 
 class MapSampleState extends State<MapSample> {
-  List<Line> aTrainMarkers = [];
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
-  List<Line> oneTrainMarkers = [];
+  List<LatLng> stationlat = [];
+  Set<Circle> circles = {};
+  late List<dynamic> stationData;
   late String _mapStyle;
+  static const Color buttonColor = Color.fromRGBO(73, 98, 110, 1);
 
 /* The function below reads a .json file from the assets folder which contains
   Train station locations. Using the data from the .json file the google map
   is filled with markers and polylines based on the coordinats of each station */
 
-  Future<void> readJson() async {
-    final String response = await rootBundle.loadString('assets/Stations.json');
-    final data = Stations.fromJson(jsonDecode(response));
-    setState(() {
-      //Data from .json file
-      aTrainMarkers = data.lineA;
-    });
-    List<LatLng> aRoute = [];
-    // List of Markers Added on Google Map
-    for (int i = 0; i < aTrainMarkers.length; i++) {
-      markers.add(
-        Marker(
-            markerId: MarkerId(aTrainMarkers[i].parentStation),
-            position: LatLng(aTrainMarkers[i].lat, aTrainMarkers[i].lon),
-            infoWindow: InfoWindow(
-              title: aTrainMarkers[i].name,
-            )),
-      );
-      //Add coordaintes of stations
-      aRoute.add(LatLng(aTrainMarkers[i].lat, aTrainMarkers[i].lon));
-    }
+  void createLine() {
+    for (int i = 0; i < Lines_NorthBound.keys.length; i++) {
+      print("Number of Lines: ${Lines_NorthBound.keys.length}");
+      String line = Lines_NorthBound.keys.elementAt(i);
+      //Build list of stations based on line
+      stationData = DataFetcher().getStationInfo(line);
+      for (int j = 0; j < stationData.length; j++) {
+        circles.add(Circle(
+          circleId: CircleId(stationData[j]['stop_id'].toString()),
+          center: LatLng(stationData[j]['lat'], stationData[j]['lon']),
+          radius: 20,
+          fillColor: Colors.black,
+          strokeColor: getBackgroundColor(line),
+          zIndex: 1,
+        ));
 
-    //Add Polylines
-    polylines.add(Polyline(
-      polylineId: const PolylineId("1"),
-      points: aRoute,
-      width: 5,
-    ));
-  } //LoadsJson file
+        // markers.add(
+        //   Marker(
+        //       markerId: MarkerId(stationData[j]['stop_id'].toString()),
+        //       position: LatLng(stationData[j]['lat'], stationData[j]['lon']),
+        //       infoWindow: InfoWindow(
+        //         title: stationData[j]['name'],
+        //       )),
+        // );
+        stationlat.add(LatLng(stationData[j]['lat'], stationData[j]['lon']));
+      }
+
+      // Add PolyLines based on stationlat list
+      polylines.add(Polyline(
+          polylineId: PolylineId(i.toString()),
+          points: stationlat,
+          width: 5,
+          zIndex: i,
+          color: getBackgroundColor(line),
+          startCap: Cap.roundCap,
+          endCap: Cap.buttCap));
+
+      stationlat = [];
+    }
+  }
 
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
 
   static const CameraPosition _kGooglePlex = CameraPosition(
-    target: LatLng(40.67043, -73.82294),
+    target: LatLng(40.733267535460655, -73.9879430702977),
     zoom: 15,
   );
 
@@ -113,8 +127,7 @@ class MapSampleState extends State<MapSample> {
       _mapStyle = string;
       print(_mapStyle);
     });
-    readJson(); //Read local Json file and setMarkers
-    print(aTrainMarkers);
+    createLine(); //Create lines a markers
     //Set timer for cards
     Globals.intial(timer: true);
     super.initState();
@@ -135,21 +148,43 @@ class MapSampleState extends State<MapSample> {
               _controller.complete(controller);
               controller.setMapStyle(_mapStyle);
             },
-            markers: markers,
             polylines: polylines,
-          ),
-          Padding(
-            // Adjust the left value as needed
-            padding: const EdgeInsets.only(top: 100.0, left: 10.0),
-            child: FloatingActionButton(
-              onPressed: () =>
-                  _goToCurrentLocation(), // Call _goToCurrentLocation() method
-              child: const Icon(Icons.my_location),
-            ),
+            circles: circles,
           ),
           SlidingUpPanel(
+            body: Stack(
+              children: [
+                /* Train List Icon */
+                Positioned(
+                  top: 440,
+                  left: 320,
+                  child: FloatingActionButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SubwayLinesScreen()),
+                    ),
+                    backgroundColor:
+                        buttonColor, // Call _goToCurrentLocation() method
+                    child: const Icon(Icons.train, size: 30.0),
+                  ),
+                ),
+                /* Location Icon */
+                Positioned(
+                  top: 350,
+                  left: 320,
+                  child: FloatingActionButton(
+                    onPressed: () => _goToCurrentLocation(),
+                    backgroundColor:
+                        buttonColor, // Call _goToCurrentLocation() method
+                    child: const Icon(Icons.my_location, size: 30.0),
+                  ),
+                )
+              ],
+            ),
+            color: const Color.fromRGBO(33, 32, 32, 1),
             parallaxEnabled: true,
-            parallaxOffset: 0.5,
+            parallaxOffset: 1,
             minHeight: panelHeightClosed,
             maxHeight: panelHeightOpen,
             panelBuilder: (sc) => PanelWidget(controller: sc),
@@ -158,68 +193,30 @@ class MapSampleState extends State<MapSample> {
           ),
         ],
       ),
-      //button to get to train list
-      bottomNavigationBar: Container(
-        height: 60,
-        color: Colors.black12,
-        child: InkWell(
-          onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const SubwayLinesScreen()),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(top: 8.0),
-            child: Column(
-              children: <Widget>[
-                Icon(
-                  Icons.star,
-                  color: Theme.of(context).accentColor,
-                ),
-                Text('Train List'),
-              ],
-            ),
-          ),
-        ),
-      ),
+
+      // //button to get to train list
+      // bottomNavigationBar: Container(
+      //   height: 50,
+      //   color: Colors.black12,
+      //   child: InkWell(
+      //     onTap: () => Navigator.push(
+      //       context,
+      //       MaterialPageRoute(builder: (context) => const SubwayLinesScreen()),
+      //     ),
+      //     child: Padding(
+      //       padding: const EdgeInsets.only(top: 8.0),
+      //       child: Column(
+      //         children: <Widget>[
+      //           Icon(
+      //             Icons.timeline,
+      //             color: Theme.of(context).accentColor,
+      //           ),
+      //           const Text('Train List'),
+      //         ],
+      //       ),
+      //     ),
+      //   ),
+      // ),
     );
   }
-
-/*   Future<void> _searchLocation() async {
-    if (_searchQuery.isNotEmpty) {
-      try {
-        List<Location> locations =
-            await locationFromAddress(_searchQuery); // Perform geocoding
-        if (locations.isNotEmpty) {
-          Location firstLocation = locations.first;
-          final GoogleMapController controller = await _controller.future;
-          controller.animateCamera(CameraUpdate.newCameraPosition(
-            CameraPosition(
-              target: LatLng(firstLocation.latitude, firstLocation.longitude),
-              zoom: 20.0,
-            ),
-          ));
-        }
-      } catch (e) {
-        // Handle the exception here
-        logger.e("Error occurred during geocoding", e);
-      }
-    } else {
-      showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-                title: const Text('Location not found'),
-                content:
-                    const Text('No results found for the entered address.'),
-                actions: [
-                  TextButton(
-                    child: const Text('OK'),
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                  ),
-                ]);
-          });
-    }
-  } */
 }

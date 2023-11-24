@@ -5,6 +5,7 @@ import 'dart:async';
 class Globals {
   //Global var
   late bool Cardtimer;
+  bool onMapLineScreen = false;
   static final Globals _singleton = Globals._internal();
 
   factory Globals() {
@@ -14,5 +15,14 @@ class Globals {
     _singleton.Cardtimer = timer;
     return _singleton;
   }
+  /* Set if varibale is on maplinescreen */
+  void setonMapLineScreen(bool val) {
+    onMapLineScreen = val;
+  }
+
+  bool getonMapLineScreen() {
+    return onMapLineScreen;
+  }
+
   Globals._internal();
 }

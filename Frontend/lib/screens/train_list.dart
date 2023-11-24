@@ -17,7 +17,7 @@ class TrainListScreen extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const MapSample()),
           ),
           child: Padding(
-            padding: EdgeInsets.only(top: 8.0),
+            padding: const EdgeInsets.only(top: 8.0),
             child: Column(
               children: <Widget>[
                 Icon(

@@ -11,11 +11,16 @@ class MapLine extends StatefulWidget {
   final String line;
   final List<dynamic> stationData;
   final LatLng stationlocation;
+  final String stop;
+  final String stopID;
+
   const MapLine({
     Key? key,
     required this.line,
     required this.stationData,
     required this.stationlocation,
+    required this.stop,
+    required this.stopID,
   }) : super(key: key);
 
   @override
@@ -150,7 +155,12 @@ class MapLineState extends State<MapLine> {
             parallaxOffset: 1,
             minHeight: panelHeightClosed,
             maxHeight: panelHeightOpen,
-            panelBuilder: (sc) => MapLinePanel(controller: sc),
+            panelBuilder: (sc) => MapLinePanel(
+              controller: sc,
+              line: widget.line,
+              station: widget.stop,
+              stationID: widget.stopID,
+            ),
             borderRadius:
                 const BorderRadius.vertical(top: Radius.circular(30.0)),
           ),
