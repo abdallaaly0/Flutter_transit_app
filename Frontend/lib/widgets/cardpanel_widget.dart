@@ -3,14 +3,24 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_transit_app/DataFetcher.dart';
+import 'package:flutter_transit_app/screens/MapLineScreen.dart';
+import 'package:flutter_transit_app/service/DataFetcher.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:logger/logger.dart';
 
 import '../globals.dart';
+import '../maps.dart';
+import '../service/stateMangment.dart';
 
-class CardPanel extends StatefulWidget {
+/* CardWidget that is built from station data
+    The wigdet uses data from the api to update train times */
+
+class CardPanel extends ConsumerStatefulWidget {
   final String stationName;
   final String train_id;
   final String train_icon;
+  final LatLng station_postion;
   final Color card_color = const Color.fromRGBO(73, 98, 110, 1);
 
   CardPanel({
@@ -18,95 +28,178 @@ class CardPanel extends StatefulWidget {
     required this.stationName,
     required this.train_id,
     required this.train_icon,
+    required this.station_postion,
   });
   @override
-  State<CardPanel> createState() => CardPanelState();
+  ConsumerState<CardPanel> createState() => CardPanelState();
 }
 
-class CardPanelState extends State<CardPanel> {
+class CardPanelState extends ConsumerState<CardPanel> {
   String nbound_time = "";
   String sbound_time = "";
   String northDirection = "Train Direction";
   String southDirection = "Train Direction";
-
+  int i = 0;
   static const Color textColor = Colors.white;
-  late String icon;
   Duration callrate = const Duration(seconds: 30);
   Timer? timer;
   Globals Statetimer = Globals.intial(timer: true);
 
   // On app load set estimated times
   Future<void> initEstimatedTime() async {
-    String dataN = await DataFetcher()
-        .getTrainTime("${widget.train_icon}${widget.train_id}N");
-    String dataS = await DataFetcher()
-        .getTrainTime("${widget.train_icon}${widget.train_id}S");
-    setState(() {
-      nbound_time = dataN;
-      sbound_time = dataS;
+    String dataN = '';
+    String dataS = '';
+
+    try {
+      dataN = await DataFetcher()
+          .getTrainTime("${widget.train_icon}${widget.train_id}N");
+      dataS = await DataFetcher()
+          .getTrainTime("${widget.train_icon}${widget.train_id}S");
+      print("After data is called");
+    } catch (e) {
+      logger.e("API not connecting load "
+          " for cardpanel: ${widget.train_icon}${widget.train_id} ");
+    }
+    if (mounted) {
+      setState(() {
+        print("Set State");
+        nbound_time = dataN;
+        sbound_time = dataS;
+      });
+    }
+  }
+
+  void reBuild() {
+    Statetimer.Cardtimer = true;
+    print("Inside Rebuild");
+    setTrainDirection(widget.train_icon);
+    initEstimatedTime();
+    print("reBuild");
+    timer = Timer.periodic(callrate, (Timer T) {
+      onUpdate(T);
     });
   }
 
   @override
-  void initState() {
-    setTrainDirection(widget.train_icon);
-    initEstimatedTime();
-    print("InitalState");
-    super.initState();
-
-    // Start timer for api calls based on callrate
-    timer = Timer.periodic(callrate, (Timer t) => onUpdate());
-  }
-
-  @override
   void dispose() {
+    //Called when widget is out of tree
     print("dispose");
     //Cancel timer when widget is disposed/deleted
     timer!.cancel();
     super.dispose();
   }
 
+  @override
+  void initState() {
+    //Called when widget is frist built
+    setTrainDirection(widget.train_icon);
+    initEstimatedTime();
+    print("InitalState");
+    timer = Timer.periodic(callrate, (Timer T) {
+      onUpdate(T);
+    });
+    super.initState();
+  }
+
+  @override
+  void activate() {
+    //Called when widget reinstered into tree
+    logger.log(Level.info, "activate");
+    super.activate();
+  }
+
+  @override
+  void deactivate() {
+    //Called before dispose
+    timer!.cancel();
+    super.deactivate();
+  }
+
   /* Code to update time  and cards*/
-  void onUpdate() async {
+  void onUpdate(Timer T) async {
+    String dataN = '';
+    String dataS = '';
     //If homepage is on screen run the update
-    if (Statetimer.Cardtimer) {
-      print("Key: ${widget.key},State Timer: ${Statetimer.Cardtimer}");
-      /* get New northbound times */
-      String dataN = await DataFetcher()
-          .getTrainTime("${widget.train_icon}${widget.train_id}N");
-      int current_estimated_time_N = int.parse(nbound_time);
+    if ((Statetimer.Cardtimer) & (mounted)) {
+      print("mouted: ${mounted},State Timer: ${Statetimer.Cardtimer}");
+      try {
+        dataN = await DataFetcher()
+            .getTrainTime("${widget.train_icon}${widget.train_id}N");
+        /* get New southbound times */
+        dataS = await DataFetcher()
+            .getTrainTime("${widget.train_icon}${widget.train_id}S");
+        logger.i("API connected");
+      } catch (e) {
+        logger.e("API not connected");
+      }
 
-      /* get New southbound times */
-      String dataS = await DataFetcher()
-          .getTrainTime("${widget.train_icon}${widget.train_id}S");
-      int current_estimated_time_S = int.parse(sbound_time);
+      if ((dataN == '') & (dataS == '')) {
+        logger.i(
+            "DataN: $dataN, DataS: $dataS, cancel timer, for ${widget.train_icon}${widget.train_id}  ");
+        // ref.watch(dataProvider.notifier).state =
+        //     "${widget.train_icon}${widget.train_id}";
+      }
+      logger
+          .i("Update Time for cardID: ${widget.train_icon}${widget.train_id}N");
 
-      int api_new_time_n = int.parse(dataN);
-      int api_new_time_s = int.parse(dataS);
+      int? current_estimated_time_N = int.tryParse(nbound_time);
+
+      int? current_estimated_time_S = int.tryParse(sbound_time);
+
+      int? api_new_time_n = int.tryParse(dataN);
+      int? api_new_time_s = int.tryParse(dataS);
 
       /* If api pulled time is different for current data update card widget */
       if ((current_estimated_time_N != api_new_time_n) ||
           (current_estimated_time_S != api_new_time_s)) {
-        setState(() {
-          nbound_time = dataN;
-          sbound_time = dataS;
-        });
+        if (mounted) {
+          setState(() {
+            nbound_time = dataN;
+            sbound_time = dataS;
+          });
+        }
       } else {
         print("Don't change times");
       }
     } else {
-      print("State Timer: ${Statetimer.Cardtimer}, Turn off state timer");
-      timer!.cancel();
+      T.cancel();
+      logger.i(
+          "Mounted: $mounted, Card: ${widget.train_icon}${widget.train_id},Timer: ${T.isActive}");
     }
+  }
+
+  /* set route */
+  void setrouteProviderState() {
+    logger.log(Level.info, "Change route proveider");
+    ref.watch(routeProvider.notifier).state = false;
   }
 
   @override
   Widget build(BuildContext context) {
+    setTrainDirection(widget.train_icon);
     return SizedBox(
       height: 130,
-      child: GestureDetector(
-        onTap: () => {DataFetcher().getTrainTimeList(widget.train_id)},
-        child: Card(
+      child: GestureDetector(onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => MapLine(
+                    line: widget.train_icon,
+                    stationData:
+                        DataFetcher().getStationInfo(widget.train_icon),
+                    stationlocation: widget.station_postion,
+                    stop: widget.stationName,
+                    stopID: widget.train_id,
+                  )),
+        );
+      }, child: Consumer(
+          builder: (BuildContext context, WidgetRef ref, Widget? child) {
+        /* Waits for the state "PositionProvider to change" then updates panel with nearest stations */
+        ref.listen(rebuildCardProvider, (previous, next) {
+          print("Location Button pressed reinstatewidget");
+          reBuild();
+        });
+        return Card(
           color: widget.card_color,
           margin: const EdgeInsets.all(8.0),
           elevation: 20.0,
@@ -145,22 +238,21 @@ class CardPanelState extends State<CardPanel> {
                 child: Column(
                   children: [
                     // Top half
-                    Expanded(
+                    Container(
+                      padding: const EdgeInsets.only(right: 2),
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 1, 0),
-                            child: FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                northDirection, // hardcoded for demonstration
-                                style: const TextStyle(
+                          Container(
+                            constraints: const BoxConstraints(maxWidth: 150),
+                            child: Text(
+                              northDirection, // hardcoded for demonstration
+                              style: const TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 1.25,
                                   color: textColor,
-                                ),
-                              ),
+                                  overflow: TextOverflow.ellipsis),
+                              maxLines: 2,
                             ),
                           ),
                           const Spacer(),
@@ -178,7 +270,7 @@ class CardPanelState extends State<CardPanel> {
                           const Padding(
                             padding: EdgeInsets.only(right: 1),
                             child: Text(
-                              "minutes",
+                              "min",
                               style: TextStyle(
                                   fontSize: 13,
                                   color: textColor,
@@ -188,28 +280,33 @@ class CardPanelState extends State<CardPanel> {
                         ],
                       ),
                     ),
+
                     // Bottom half
-                    Expanded(
+                    Container(
+                      padding: const EdgeInsets.only(right: 2, left: 2),
                       child: Row(
                         children: [
-                          FittedBox(
-                            fit: BoxFit.scaleDown,
+                          Container(
+                            constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.509),
                             child: Text(
-                              southDirection,
+                              southDirection, // hardcoded for demonstration
                               style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold,
-                                letterSpacing: 1.25,
-                                color: textColor,
-                              ),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold,
+                                  letterSpacing: 1.25,
+                                  color: textColor,
+                                  overflow: TextOverflow.ellipsis),
+                              maxLines: 2,
                             ),
                           ),
                           const Spacer(),
-                          // Southbound
+                          //NorthBound
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              sbound_time, // need to modify this to have different estimated time for the second direction
+                              sbound_time,
                               style: const TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
@@ -217,9 +314,9 @@ class CardPanelState extends State<CardPanel> {
                             ),
                           ),
                           const Padding(
-                            padding: EdgeInsets.only(right: 2),
+                            padding: EdgeInsets.only(right: 1),
                             child: Text(
-                              "minutes",
+                              "min",
                               style: TextStyle(
                                   fontSize: 13,
                                   color: textColor,
@@ -234,8 +331,8 @@ class CardPanelState extends State<CardPanel> {
               ),
             ],
           ),
-        ),
-      ),
+        );
+      })),
     );
   }
 
@@ -243,8 +340,8 @@ class CardPanelState extends State<CardPanel> {
   void setTrainDirection(String line) {
     switch (line) {
       case "A":
-        northDirection = "Brooklyn and Manhattan";
-        southDirection = "Queens";
+        northDirection = "Brooklyn and Manhattan (Inwood-207 St)";
+        southDirection = "Queens (Leffert Blvd)";
         break;
       case "B":
         northDirection = "Manhattan (145 st)";
@@ -259,8 +356,8 @@ class CardPanelState extends State<CardPanel> {
         southDirection = "Brooklyn (Coney Island)";
         break;
       case "E":
-        northDirection = "Manhattan (World Trade Center)";
-        southDirection = "Uptown & Queens";
+        northDirection = "Uptown & Queens";
+        southDirection = "Manhattan (World Trade Center)";
         break;
       case "F":
         northDirection = "Queens (Jamaica-179 st)";

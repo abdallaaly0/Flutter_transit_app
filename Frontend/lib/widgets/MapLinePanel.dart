@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_transit_app/DataFetcher.dart';
+import 'package:flutter_transit_app/service/DataFetcher.dart';
 import 'package:flutter_transit_app/PanelViews/homepanel.dart';
 import 'package:flutter_transit_app/globals.dart';
 import 'package:flutter_transit_app/screens/SubwayLinesScreen.dart';
@@ -27,8 +27,8 @@ class MapLinePanelState extends State<MapLinePanel> {
   late Color dot;
   bool left = true;
   bool right = false;
-  late List<dynamic> arrivaltimesNorth = ["", "", ""];
-  late List<dynamic> arrivaltimesSouth = ["", "", ""];
+  late List<dynamic> arrivaltimesNorth = [];
+  late List<dynamic> arrivaltimesSouth = [];
   late String northDirection;
   late String southDirection;
   Timer? timer;
@@ -71,27 +71,32 @@ class MapLinePanelState extends State<MapLinePanel> {
     List<dynamic> dataS = await DataFetcher()
         .getTrainTimeList("${widget.line}${widget.stationID}S");
     print("data South: $dataS");
-    setState(() {
-      arrivaltimesNorth = dataN;
-      arrivaltimesSouth = dataS;
-    });
+    if (mounted) {
+      setState(() {
+        arrivaltimesNorth = dataN;
+        arrivaltimesSouth = dataS;
+      });
+    }
   }
 
   /* Fromat and set times in proper postions */
   String timeText(int i, String route) {
     String time = "";
+    print("arrivaltimesNorth.length: ${arrivaltimesNorth.length}");
+    print("arrivaltimesSouth.length: ${arrivaltimesSouth.length}");
+    print("i: $i");
     switch (route) {
       /* NorthBound times */
       case 'N':
         /* If we don't know time at index i  */
-        if (3 < i) {
+        if ((i > arrivaltimesNorth.length - 1)) {
           return time = "";
         } else {
           return "${arrivaltimesNorth[i]} mins";
         }
       /* SouthBound times */
       case 'S':
-        if (3 < i) {
+        if ((i > arrivaltimesSouth.length - 1)) {
           return time = "";
         } else {
           return "${arrivaltimesSouth[i]} mins";
@@ -111,13 +116,15 @@ class MapLinePanelState extends State<MapLinePanel> {
       List<dynamic> dataS = await DataFetcher()
           .getTrainTimeList("${widget.line}${widget.stationID}S");
       print("data South: $dataS");
-      setState(() {
-        arrivaltimesNorth = dataN;
-        arrivaltimesSouth = dataS;
-      });
+      if (mounted) {
+        setState(() {
+          arrivaltimesNorth = dataN;
+          arrivaltimesSouth = dataS;
+        });
+      }
     } else {
       print(
-          "State Timer: ${Statetimer.getonMapLineScreen()}, Turn off state timer");
+          "State Timer MapLine: ${Statetimer.getonMapLineScreen()}, Turn off state timer");
       timer!.cancel();
     }
   }
@@ -164,9 +171,10 @@ class MapLinePanelState extends State<MapLinePanel> {
         const SizedBox(height: 26),
 
         // Transition Dots
-        Row(children: [
+        Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
           Padding(
-            padding: const EdgeInsets.fromLTRB(180, 0, 0, 0),
+            padding: EdgeInsets.fromLTRB(
+                MediaQuery.of(context).size.width * 0.458, 0, 0, 0),
             child: Container(
               width: 10,
               height: 10,

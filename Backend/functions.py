@@ -1,110 +1,78 @@
 import string
-from nyct_gtfs import NYCTFeed
+from types import NoneType
 import time
 import datetime
+import logging
 
-# Function for getting A train time
-def Train_stop_time(StationID: str):
-    # Get first char of the string
+from nyct_gtfs import NYCTFeed
+# gets arrival time for specific station based on "StationID" 
+# and returns the nearest train time
+def Train_stop_time(StationID: str,ReturnList: bool):
+    # First char of stationID represents desired train line
     train_line=str(StationID[0])
-    #Get Train ID
+   
+    #Remove the the first char to get specifc station
     StationID=StationID[1:]
-    print(train_line)
-    print(StationID)
-    # Get the last char of the string
+    # Save desired direction "N" or "S" from the last char of string
     train_direction=str(StationID[-1])
-    print(train_direction)
-    feed = NYCTFeed(train_line, api_key="5zisyVOSabaBzo4djN7cS9AS6uNbXMfChhoFoWL7")
 
-    # Read the all northbound A trains curruntely underway
+    # Load feed from NYCTFeed and filter data for specfic train line
+    feed = NYCTFeed(train_line, api_key="5zisyVOSabaBzo4djN7cS9AS6uNbXMfChhoFoWL7")
     trains = feed.filter_trips(line_id=train_line,underway=True, travel_direction= train_direction,headed_for_stop_id= StationID)
-    # If train no trains are under way
+
+    # If there are less than 3 trains underway add trains that are not underway yet heading for desirerd direction
     if(len(trains) < 3):
-        print("Train len ",end= "")
-        print(len(trains))
         trains.extend(feed.filter_trips(line_id=train_line,underway=False, travel_direction= train_direction))
-    # To pull new data from feed, for next call
+
+    # refresh feed, for next call
     feed.refresh()
 
-    # Arrival time list 
+    # Store arrival times
     arrival_time_list= []
 
-    print(StationID)
-    #Get current real time
+    # Get current real time
     current_time = datetime.datetime.now()
 
+    # Loop through all data in list trains 
     for Train in trains:
+        # Loop through all stops in list Train.stop_time_updates
         for Stops in Train.stop_time_updates:
             #If the train still has StationID left on its route get and print the arrival time
             if StationID == Stops.stop_id:
-                print(Stops.stop_name)
+                #If Stops.arrival is noneType return empty sting 
+                if(type(Stops.arrival) == NoneType):
+                    if(ReturnList):
+                        arrival_time_list.append("")
+                        return arrival_time_list
+                    return ""
+                
                 estimated_arrival_time=Stops.arrival - current_time
 
-                #Fill list with estimated arrival times
+                # add arrival time to list for trian heading to stopID converted to mins
                 arrival_time_list.append(int(estimated_arrival_time.total_seconds()/60))
 
-    #Sort list from least to greatest, so lowest arrival time is first index
+
     arrival_time_list=sorted(arrival_time_list)
-    print(arrival_time_list)
+    logging.basicConfig(level=logging.DEBUG)
+    # If ReturnList is true return entire arrival_time_list 
+    if(ReturnList):
+        message = "Return list, Train Line: {} {}, arrival times: {} ".format(train_line,train_direction, arrival_time_list)
+        logging.debug(message)
+         #Filiter list so that only numbers greater than or equal to 0 is in the list 
+        arrival_time_list = [num for num in arrival_time_list if num >= 0]
+        return arrival_time_list
+    
     i=0
-
-    #Get the index where 0 is not the time 
-    while (arrival_time_list[i] <= 0):
-        i=i+1
-    print(arrival_time_list[i])
-    return arrival_time_list[i]
-
-
-# Function for getting A train time
-def Train_stop_time_list(StationID: str):
-    # Get first char of the string
-    train_line=str(StationID[0])
-
-    # Get Station ID
-    StationID=StationID[1:]
-    print(train_line)
-    print(StationID)
-
-    #Get Train direction
-    train_direction=str(StationID[-1])
-    print(train_direction)
-    feed = NYCTFeed(train_line, api_key="5zisyVOSabaBzo4djN7cS9AS6uNbXMfChhoFoWL7")
-
-    # Read the all northbound A trains curruntely underway
-    trains = feed.filter_trips(train_line,underway=True, travel_direction= train_direction,headed_for_stop_id= StationID)
-    # If train no trains are under way
-    if(len(trains) < 4):
-        print("Train len ",end= "")
-        print(len(trains))
-        trains.extend(feed.filter_trips(train_line,underway=False, travel_direction= train_direction))
-    # To pull new data from feed, for next call
-    feed.refresh()
-
-    # Arrival time list 
-    arrival_time_list= []
-
-    print(StationID)
-    #Get current real time
-    current_time = datetime.datetime.now()
-
-    for Train in trains:
-        for Stops in Train.stop_time_updates:
-            #If the train still has StationID left on its route get and print the arrival time
-            if StationID == Stops.stop_id:
-                print(Stops.stop_name)
-                estimated_arrival_time=Stops.arrival - current_time
-
-                #Fill list with estimated arrival times
-                arrival_time_list.append(int(estimated_arrival_time.total_seconds()/60))
-
-    #Sort list from least to greatest, so lowest arrival time is first index
-    arrival_time_list=sorted(arrival_time_list)
     #Filiter list so that only numbers greater than or equal to 0 is in the list 
     arrival_time_list = [num for num in arrival_time_list if num >= 0]
+    message = "Train Line: {}{}, arrival times: {} ".format(train_line,train_direction, arrival_time_list)
+    logging.debug(message)
+    #If list is empty return ""
+    if(len(arrival_time_list)==0):
+        return ""
+    
+    return arrival_time_list[i]
 
-    print(arrival_time_list)
-
-    return arrival_time_list
 
 
 

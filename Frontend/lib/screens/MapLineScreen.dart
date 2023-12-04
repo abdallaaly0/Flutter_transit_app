@@ -1,13 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_transit_app/screens/SubwayLinesScreen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:logger/logger.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import '../DataFetcher.dart';
+import '../maps.dart';
+import '../service/DataFetcher.dart';
+import '../service/stateMangment.dart';
 import '../widgets/MapLinePanel.dart';
 
-class MapLine extends StatefulWidget {
+class MapLine extends ConsumerStatefulWidget {
   final String line;
   final List<dynamic> stationData;
   final LatLng stationlocation;
@@ -24,10 +28,10 @@ class MapLine extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<MapLine> createState() => MapLineState();
+  ConsumerState<MapLine> createState() => MapLineState();
 }
 
-class MapLineState extends State<MapLine> {
+class MapLineState extends ConsumerState<MapLine> {
   late String line, mapstyle;
   late List<dynamic> stationData;
   Set<Marker> markers = {}, empty = {};
@@ -36,6 +40,8 @@ class MapLineState extends State<MapLine> {
   Set<Circle> circles = {};
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+
+  BitmapDescriptor markerIcon = BitmapDescriptor.defaultMarker;
 
 /* Create station line from */
   void createLine() {
@@ -48,16 +54,26 @@ class MapLineState extends State<MapLine> {
         fillColor: Colors.black,
         strokeColor: getBackgroundColor(widget.line),
         zIndex: 1,
+        consumeTapEvents: false,
+        onTap: () {
+          createInfoWindow(
+              MarkerId(widget.stationData[i]['stop_id'].toString()));
+        },
       ));
 
+      /* Set invisable markers */
       markers.add(
         Marker(
-            markerId: MarkerId(widget.stationData[i]['stop_id'].toString()),
-            position: LatLng(
-                widget.stationData[i]['lat'], widget.stationData[i]['lon']),
-            infoWindow: InfoWindow(
-              title: widget.stationData[i]['name'],
-            )),
+          alpha: 0,
+          markerId: MarkerId(widget.stationData[i]['stop_id'].toString()),
+          position: LatLng(
+              widget.stationData[i]['lat'], widget.stationData[i]['lon']),
+          infoWindow: InfoWindow(
+            title: widget.stationData[i]['name'],
+            anchor: const Offset(0.5, 1),
+          ),
+          visible: true,
+        ),
       );
       stationlat.add(
           LatLng(widget.stationData[i]['lat'], widget.stationData[i]['lon']));
@@ -72,6 +88,25 @@ class MapLineState extends State<MapLine> {
         endCap: Cap.buttCap));
   }
 
+  // void addCustomIcon() {
+  //   BitmapDescriptor.fromAssetImage(
+  //           const ImageConfiguration(), "assets/train.png")
+  //       .then(
+  //     (icon) {
+  //       setState(() {
+  //         markerIcon = icon;
+  //       });
+  //     },
+  //   );
+  // }
+  Future<void> createInfoWindow(MarkerId markerID) async {
+    print("Create infowindow");
+    /* Get maps controller */
+    final GoogleMapController controller = await _controller.future;
+    print("Show marker");
+    controller.showMarkerInfoWindow(markerID);
+  }
+
   @override
   void initState() {
     //Intlize var
@@ -82,6 +117,7 @@ class MapLineState extends State<MapLine> {
       mapstyle = string;
       print(mapstyle);
     });
+
     print(widget.stationlocation);
     print('intial Map Screen');
     super.initState();
@@ -93,6 +129,23 @@ class MapLineState extends State<MapLine> {
     final panelHeightOpen = MediaQuery.of(context).size.height * 0.5;
     return Scaffold(
       appBar: AppBar(
+        leading: Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          return BackButton(
+            color: Color.fromRGBO(255, 255, 255, 1),
+            onPressed: () {
+              print("State: ${ref.read(routeProvider.notifier).state} ");
+              if (ref.read(routeProvider.notifier).state) {
+                logger.log(Level.info, "Going back to Map");
+                ref.watch(rebuildCardProvider.notifier).state++;
+                Navigator.maybePop(context);
+              } else {
+                logger.log(Level.info, "Going back to train list");
+                Navigator.maybePop(context);
+              }
+            },
+          );
+        }),
         title: Text(
           "$line Train",
           style: TextStyle(color: getTextColor(widget.line)),
@@ -123,9 +176,10 @@ class MapLineState extends State<MapLine> {
             ),
             body: Stack(
               children: [
+                // Train logo above panel
                 Positioned(
-                  top: 340,
-                  left: 15,
+                  top: MediaQuery.of(context).size.height * 0.43,
+                  left: MediaQuery.of(context).size.width * 0.038,
                   child: Container(
                     height: 75,
                     width: 75,

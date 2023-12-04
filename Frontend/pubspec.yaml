@@ -46,6 +46,8 @@ dependencies:
   latlong2: ^0.8.1
   http: ^0.13.6
   sliding_up_panel: ^2.0.0+1
+  kdtree: ^0.2.0
+  flutter_riverpod: ^2.3.7
 
 
 dev_dependencies:
@@ -77,6 +79,7 @@ flutter:
   assets: 
       - assets/map_style.txt
       - assets/Stations.json
+      - assets/train.png
       - assets/TrainIcons/
       - assets/TrainIcons/A.png
       - assets/TrainIcons/B.png
@@ -84,6 +87,23 @@ flutter:
       - assets/TrainIcons/1.png
       - assets/TrainIcons/D.png
       - assets/TrainIcons/4.png
+      - assets/TrainIcons/5.png
+      - assets/TrainIcons/6.png
+      - assets/TrainIcons/7.png
+      - assets/TrainIcons/E.png
+      - assets/TrainIcons/F.png
+      - assets/TrainIcons/G.png
+      - assets/TrainIcons/H.png
+      - assets/TrainIcons/J.png
+      - assets/TrainIcons/L.png
+      - assets/TrainIcons/M.png
+      - assets/TrainIcons/N.png
+      - assets/TrainIcons/Q.png
+      - assets/TrainIcons/R.png
+      - assets/TrainIcons/S.png
+      - assets/TrainIcons/T.png
+      - assets/TrainIcons/W.png
+      - assets/TrainIcons/Z.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
