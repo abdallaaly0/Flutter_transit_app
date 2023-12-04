@@ -1,4 +1,4 @@
-#Fri Nov 24 15:23:04 EST 2023
+#Mon Dec 04 14:45:25 EST 2023
 base.0=/Users/veraldval/Desktop/GitHub/Flutter_transit_app/Frontend/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

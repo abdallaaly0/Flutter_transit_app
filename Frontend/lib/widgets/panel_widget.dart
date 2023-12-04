@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_transit_app/PanelViews/homepanel.dart';
 import 'package:flutter_transit_app/globals.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 //Widget That describes what is seen in the sliding up panel
 
@@ -8,9 +9,11 @@ import 'package:flutter_transit_app/globals.dart';
 
 class PanelWidget extends StatefulWidget {
   final ScrollController controller;
+  final LatLng postion;
   const PanelWidget({
     Key? key,
     required this.controller,
+    required this.postion,
   }) : super(key: key);
 
   @override
@@ -22,15 +25,7 @@ class PanelWidgetState extends State<PanelWidget> {
   Widget build(BuildContext context) {
     return HomePanelView(
       controller: widget.controller,
-      callback: onCardClick,
+      postion: widget.postion,
     );
-  }
-
-  //When a CardWidget is clicked we change the cardclicked.view to true
-  void onCardClick() {
-    setState(() {
-      print("Card Clicked");
-      //cardclicked.view = true;
-    });
   }
 }

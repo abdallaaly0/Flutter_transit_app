@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:flutter_transit_app/DataFetcher.dart';
+import 'package:flutter_transit_app/service/DataFetcher.dart';
 import 'package:flutter_transit_app/main.dart';
 
 void main() {

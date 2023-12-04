@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_transit_app/screens/train_list.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'maps.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    const ProviderScope(child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {

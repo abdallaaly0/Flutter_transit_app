@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_transit_app/DataFetcher.dart';
+import 'package:flutter_transit_app/service/DataFetcher.dart';
 import 'package:flutter_transit_app/globals.dart';
 import 'package:flutter_transit_app/maps.dart';
 import 'package:flutter_transit_app/screens/MapLineScreen.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import '../data/StationData.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../data/data.dart';
+import '../service/stateMangment.dart';
 
 Globals Statetimer = Globals.intial(timer: false);
 void setStateTimer() {
-  Statetimer.setonMapLineScreen(false);
+  Statetimer.Cardtimer = false;
 }
 
 Color getBackgroundColor(String line) {
@@ -66,14 +68,19 @@ class SubwayLinesScreen extends StatelessWidget {
     print("State timer ${Statetimer.onMapLineScreen} ");
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-          color: Colors.white,
-          onPressed: () {
-            Statetimer.Cardtimer = true;
-            Statetimer.onMapLineScreen = false;
-            Navigator.maybePop(context);
-          },
-        ),
+        leading: Consumer(
+            builder: (BuildContext context, WidgetRef ref, Widget? child) {
+          return BackButton(
+            color: Colors.white,
+            onPressed: () {
+              print("Trigger card rebuild");
+              ref.watch(rebuildCardProvider.notifier).state++;
+              ref.watch(routeProvider.notifier).state = true;
+              Statetimer.Cardtimer = true;
+              Navigator.maybePop(context);
+            },
+          );
+        }),
         backgroundColor: const Color.fromRGBO(33, 32, 32, 1),
         title: const Text(
           'MTA Subway Lines',
@@ -106,7 +113,7 @@ class SubwayLinesScreen extends StatelessWidget {
       ),
       body: GridView.builder(
         padding: EdgeInsets.all(8.0),
-        itemCount: Lines_NorthBound.keys.length,
+        itemCount: lineStations.keys.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4, // Choose the number of items per row
           crossAxisSpacing: 5.0, // Spacing between items horizontally
@@ -114,7 +121,7 @@ class SubwayLinesScreen extends StatelessWidget {
           childAspectRatio: 1.0, // Aspect ratio of each grid item
         ),
         itemBuilder: (context, index) {
-          final line = Lines_NorthBound.keys.elementAt(index);
+          final line = lineStations.keys.elementAt(index);
           print("Line: $index " + line);
           return Container(
             decoration: BoxDecoration(

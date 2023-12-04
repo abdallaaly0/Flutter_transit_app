@@ -4,11 +4,7 @@ from underground import metadata, SubwayFeed
 from nyct_gtfs import NYCTFeed
 
 
-# API_KEY = os.getenv('5zisyVOSabaBzo4djN7cS9AS6uNbXMfChhoFoWL7')
-# ROUTE='A'
-# feed = SubwayFeed.get(ROUTE, api_key='5zisyVOSabaBzo4djN7cS9AS6uNbXMfChhoFoWL7')
-# print(feed.extract_stop_dict())
-
+# This file prints 
 
 results=""
 i=0
